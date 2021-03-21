@@ -196,7 +196,7 @@ class Slider {
                     }
 
                     slideRightLoop();
-                }, 200);
+                }, 300);
             })();
 
         }
@@ -211,7 +211,7 @@ class Slider {
 
 
                     slideLeftLoop();
-                }, 200);
+                }, 300);
             })();
         }
     }
