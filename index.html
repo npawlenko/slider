@@ -1,0 +1,94 @@
+<html lang="en">
+    <head>
+        <meta charset="utf8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Slider example</title>
+
+        <link rel="stylesheet" href="slider.css">
+        <style>
+            body {padding:100px 0;}
+            .slider-element {text-align:center;}
+
+            .container{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
+            @media (min-width:768px){.container{width:750px}}
+            @media (min-width:992px){.container{width:970px}}
+            @media (min-width:1200px){.container{width:1170px}}
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+
+            <!-- Create slider -->
+            <div id="slider1" class="slider">
+                <div class="slider-elements-wrapper">
+                    <!-- Controls to slide left/right -->
+                    <div class="slide slide-left"><img src="img/arrow-left.png" alt="slide left"></div>
+                    <div class="slide slide-right"><img src="img/arrow-right.png" alt="slide right"></div>
+
+                    <!-- Add your own slides here -->
+                    <div class="slider-elements">
+                        <div class="slider-element">
+                            <img src="img/server.png" alt="survival działki">
+
+                            <h4>Slide #0</h4>
+                        </div>
+
+                        <div class="slider-element">
+                            <img src="img/server.png" alt="survival działki">
+
+                            <h4>Serwer #1</h4>
+                        </div>
+
+                        <div class="slider-element">
+                            <img src="img/server.png" alt="survival działki">
+
+                            <h4>Serwer #2</h4>
+                        </div>
+
+                        <div class="slider-element">
+                            <img src="img/server.png" alt="survival działki">
+
+                            <h4>Serwer #4</h4>
+                        </div>
+
+                        <div class="slider-element">
+                            <img src="img/server.png" alt="survival działki">
+
+                            <h4>Serwer #5</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide indicators will be created here -->
+                <div class="controls"></div>
+            </div>
+
+        </div>
+
+
+
+
+        <!-- Load jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <!-- Load slider -->
+        <script src="slider.js"></script>
+
+        <!-- Example -->
+        <script>
+            const slider1 = new Slider($('#slider1')[0], 3);
+
+            // Initialize slider
+            slider1.init();
+
+            // Why not to add automatic sliding
+            setInterval(function() {
+                slider1.slideRight();
+                slider2.slideRight();
+            }, 5000);
+        </script>
+    </body>
+</html>
