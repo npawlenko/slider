@@ -42,7 +42,7 @@ Create your slider anywhere you want.
 ```javascript
 const sliderElement = document.getElementById('mySlider');
 
-const slider = new Slider(sliderElement, 5); // 5 = slider elements visible
+const slider = new Slider(sliderElement, 5); // 5 = slider's elements visible count
 slider.init();
 ```
 
