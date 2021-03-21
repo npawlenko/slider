@@ -14,10 +14,11 @@ class Slider {
     constructor(Slider, visibleElements) {
         this.slider = Slider;
         this.toSee = visibleElements;
+        this.ongoingAnimation = false;
 
         if(visibleElements < 1)
             throw new Error('visibleElements should be greater than 0');
-        if(visibleElements % 2 == 0)
+        if(visibleElements % 2 === 0)
             throw new Error('visibleElements should be odd');
     }
 
@@ -34,7 +35,7 @@ class Slider {
             c.classList.add('control');
 
             // Init element
-            if(j == this.center) {
+            if(j === this.center) {
                 c.classList.add('active');
                 elements[j].classList.add('active');
             }
@@ -64,27 +65,33 @@ class Slider {
     }
 
     slide(direction) {
+        if(this.ongoingAnimation === true)
+            return false;
+
         const activeNo = Number.parseInt(this.slider.querySelector('.controls .active').dataset.slide),
             slides = this.slider.querySelectorAll('.slider-element').length,
             elements = this.slider.querySelector('.slider-elements'),
             slider = $(this.slider),
-            next = direction == Slider.directionRight ?
-                        activeNo+1 > slides-1 ?
-                            0 : activeNo+1
-                        : direction == Slider.directionLeft ?
-                            activeNo-1 < 0 ?
-                                slides-1 : activeNo-1
-                        : false;
+            $this = this,
+            next = direction === Slider.directionRight ?
+                activeNo+1 > slides-1 ?
+                    0 : activeNo+1
+                : direction === Slider.directionLeft ?
+                    activeNo-1 < 0 ?
+                        slides-1 : activeNo-1
+                    : false;
 
         if(slides < 2 || next === false)
             return false;
 
 
+        $this.ongoingAnimation = true;
+
         // Refresh active states
         slider.find('.control.active, .slider-element.active').removeClass('active');
         slider.find(`.control[data-slide=${ next }], .slider-element[data-slide=${ next }]`).addClass('active');
 
-        if(direction == Slider.directionRight) {
+        if(direction === Slider.directionRight) {
             // Slide right
             const first = $(slider.find('.slider-element')[0]),
                 firstClone = first.clone()[0];
@@ -99,7 +106,9 @@ class Slider {
                     first.remove();
                     elements.append(firstClone);
                     $(firstClone).hide();
-                    $(firstClone).animate({width: 'toggle'}, 100);
+                    $(firstClone).animate({width: 'toggle'}, 100, function() {
+                        $this.ongoingAnimation = false;
+                    });
                 });
             }
             else {
@@ -109,12 +118,13 @@ class Slider {
                     elements.append(firstClone);
                     $(firstClone).hide();
 
-                    firstUnvisibleEl.animate({width: 'toggle'}, 100);
-
+                    firstUnvisibleEl.animate({width: 'toggle'}, 100, function() {
+                        $this.ongoingAnimation = false;
+                    });
                 });
             }
         }
-        else if(direction == Slider.directionLeft) {
+        else if(direction === Slider.directionLeft) {
             // Slide left
             const lastVisible = this.toSee < slides ? this.toSee-1 : slides-1;
             const last = $(slider.find('.slider-element')[slides-1]),
@@ -129,7 +139,9 @@ class Slider {
 
                     elements.prepend(lastClone);
                     $(lastClone).hide();
-                    $(lastClone).animate({width: 'toggle'}, 100);
+                    $(lastClone).animate({width: 'toggle'}, 100, function() {
+                        $this.ongoingAnimation = false;
+                    });
                 });
             }
             else {
@@ -139,7 +151,9 @@ class Slider {
 
                     elements.prepend(lastClone);
                     $(lastClone).hide();
-                    $(lastClone).animate({width: 'toggle'}, 100);
+                    $(lastClone).animate({width: 'toggle'}, 100, function() {
+                        $this.ongoingAnimation = false;
+                    });
                 });
             }
         }
@@ -176,7 +190,7 @@ class Slider {
             // slide right
             (function slideRightLoop() {
                 setTimeout(function() {
-                    if(activeNo != numSlide) {
+                    if(activeNo !== numSlide) {
                         $this.slideRight();
                         activeNo = activeNo+1 > slides-1 ? 0 : activeNo+1
                     }
@@ -190,7 +204,7 @@ class Slider {
             // slide left
             (function slideLeftLoop() {
                 setTimeout(function() {
-                    if(activeNo != numSlide) {
+                    if(activeNo !== numSlide) {
                         $this.slideLeft();
                         activeNo = activeNo-1 < 0 ? slides-1 : activeNo-1
                     }

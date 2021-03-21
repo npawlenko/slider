@@ -1,5 +1,7 @@
 # Slider
 
+Demo: https://netscriptpl.github.io/slider/
+
 ## Requirements
 * jQuery
 
@@ -7,9 +9,14 @@
 
 #### Creating new slider
 
-Add some style to your slider.
+First off add some style to your slider.
 ```html
 <link rel="stylesheet" href="slider.css">
+```
+
+Do the same with javascript.
+```html
+<script src="slider.js"></script>
 ```
 
 Create your slider anywhere you want.
