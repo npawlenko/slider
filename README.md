@@ -1,5 +1,7 @@
 # Slider
 
+Demo: https://netscriptpl.github.io/slider/
+
 ## Requirements
 * jQuery
 
