@@ -1,6 +1,6 @@
 # Slider
 
-Demo: https://netscriptpl.github.io/slider/
+Demo: https://bitnobby.github.io/slider/
 
 ## Requirements
 * jQuery
